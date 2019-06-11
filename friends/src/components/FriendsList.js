@@ -1,19 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import AddFriendForm from './AddFriendForm';
+import FriendCard from './FriendCard';
 
-function FriendsList(props) {
+const FriendsList = props => {
     return (
-        <div className="friendCard">
-            {props.friends.map(friend => {
-                return (
-                    <div key={friend.id}>
-                        <h2><span>Name: </span>{friend.name}</h2>
-                        <p><span>Age: </span>{friend.age}</p>
-                        <p><span>email: </span>{friend.email}</p>
-                    </div>
-                )
-            })}
+        <div className="content">
+            <AddFriendForm addFriend={props.addFriend} />
+            <div className='friendsListWrapper'>
+                {props.friends.map(friend => <Link to={`/friends/$friend.id`} key={friend.id}><FriendCard friend={friend} /></Link>)}
+            </div>
         </div>
     )
 }
+
 
 export default FriendsList;
