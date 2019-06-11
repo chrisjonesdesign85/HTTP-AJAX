@@ -3,8 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 
 import axios from 'axios';
-import Friends from '.components/FriendsList';
-import { BrowserRouter as Route } from 'react-router-dom';
+import FriendsList from './components/FriendsList';
+import { Route } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
@@ -27,9 +27,13 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Route exact path="/" render={(props) => (
-          <Friends {...props} friends={this.state.friends} />
-        )} />
+        <header className='App-header'>
+          <h1>My Friends</h1>
+          <FriendsList friends={this.state.friends} />
+        </header>
+        {/* <Route exact path="/" render={(props) => (
+          <FriendsList {...props} friends={this.state.friends} />
+        )} /> */}
 
 
       </div>
