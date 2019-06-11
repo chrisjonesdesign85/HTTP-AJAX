@@ -19,7 +19,9 @@ class App extends React.Component {
   componentDidMount() {
     axios
       .get("http://localhost:5000/friends")
-      .then(res => this.ListeningStateChangedEvent({ friends: res.data }))
+      .then(response => {
+        this.setState({ friends: response.data })  // Fixed this line
+      })
       .catch(err => console.log(err))
   }
 
@@ -29,13 +31,10 @@ class App extends React.Component {
       <div className="App">
         <header className='App-header'>
           <h1>My Friends</h1>
-          <FriendsList friends={this.state.friends} />
+          <div className="friendsListWrapper">
+            <FriendsList friends={this.state.friends} />
+          </div> {/*end friendsListWrapper */}
         </header>
-        {/* <Route exact path="/" render={(props) => (
-          <FriendsList {...props} friends={this.state.friends} />
-        )} /> */}
-
-
       </div>
     );
   }
