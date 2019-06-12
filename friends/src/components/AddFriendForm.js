@@ -26,7 +26,7 @@ class AddFriendForm extends Component {
     render() {
         return (
             <form className="add-friend" onSubmit={this.onSubmit}>
-                <h2>Add Friend</h2>
+                <h3>Add Friend</h3>
                 <div className="input">
                     <label htmlFor='name'>Name: </label>
                     <input id='name' name='name' value={this.state.name} onChange={this.onChange} required />
