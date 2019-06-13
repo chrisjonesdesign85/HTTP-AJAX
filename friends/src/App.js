@@ -3,6 +3,7 @@ import './App.css';
 
 import axios from 'axios';
 import FriendsList from './components/FriendsList';
+import EditFriend from './components/EditFriend';
 import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
 
 class App extends Component {
@@ -32,14 +33,26 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
+  editFriend = (id, updatedFriend) => {
+    axios
+      .put(`http://localhost:5000/friends/${id}`, updatedFriend)
+      .then(response => {
+        this.setState({ friends: response.date });
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   render() {
     return (
       <div className="App">
         <Router>
           <Link to="/">
-          <h1 className="header">My Friends</h1>
+            <h1 className="header">My Friends</h1>
           </Link>
           <Route exact path="/" render={(props) => <FriendsList {...props} friends={this.state.friends} addFriend={this.addFriend} />} />
+          <Route path="/friends/:id/edit" render={(props) => <EditFriend {...props} editFriend={this.editFriend} />} />
         </Router>
       </div>
     );
