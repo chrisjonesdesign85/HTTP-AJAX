@@ -4,6 +4,7 @@ import './App.css';
 import axios from 'axios';
 import FriendsList from './components/FriendsList';
 import EditFriend from './components/EditFriend';
+import SingleFriend from './components/SingleFriend';
 import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
 
 class App extends Component {
@@ -44,6 +45,16 @@ class App extends Component {
       })
   }
 
+  deleteFriend = (id) => {
+    axios.delete(`http://localhost:5000/friends/${id}`)
+      .then(response => {
+        this.setState({ friends: response.data })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   render() {
     return (
       <div className="App">
@@ -53,6 +64,7 @@ class App extends Component {
           </Link>
           <Route exact path="/" render={(props) => <FriendsList {...props} friends={this.state.friends} addFriend={this.addFriend} />} />
           <Route path="/friends/:id/edit" render={(props) => <EditFriend {...props} editFriend={this.editFriend} />} />
+          <Route exact path="/friends/:id" render={(props) => <SingleFriend {...props} deleteFriend={this.deleteFriend} />} />
         </Router>
       </div>
     );
